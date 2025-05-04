@@ -1,7 +1,7 @@
 FROM gradle:7.6.0-jdk17 AS build
 WORKDIR /app
 COPY . .
-RUN gradle clean build -x test
+RUN gradle bootJar --no-daemon
  
 # Aşama 2: Çalıştırma
 FROM eclipse-temurin:17-jdk
