@@ -1,13 +1,12 @@
-# Aşama 1: Build
-FROM gradle:7.6.0-jdk17 AS build
+FROM gradle:8.5-jdk17 AS builder
 WORKDIR /app
 COPY . .
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar --no-daemon
 
-# Aşama 2: Çalıştır
+# 2. Aşama: Çalıştırma
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
-COPY --from=build /app/build/libs/app.jar app.jar
+COPY --from=builder /app/build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
