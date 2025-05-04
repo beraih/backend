@@ -6,6 +6,6 @@ RUN gradle bootJar --no-daemon
 # Aşama 2: Çalıştırma
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
-COPY --from=build /app/build/libs/your-app-name.jar app.jar
+COPY --from=build /app/build/libs/demo.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
