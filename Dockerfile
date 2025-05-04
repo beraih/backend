@@ -2,9 +2,10 @@
 FROM gradle:7.6.0-jdk17 AS build
 WORKDIR /app
 COPY . .
+RUN chmod +x ./gradlew
 RUN ./gradlew bootJar --no-daemon
 
-# Aşama 2: Run
+# Aşama 2: Çalıştır
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
 COPY --from=build /app/build/libs/app.jar app.jar
