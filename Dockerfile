@@ -1,9 +1,7 @@
-FROM eclipse-temurin:17-jdk
-
+FROM gradle:8.5-jdk17 AS builder
+COPY . /app
 WORKDIR /app
-
-COPY build/libs/*.jar app.jar
-
-EXPOSE 8080
-
+RUN gradle build --no-daemon
+FROM openjdk:17
+COPY --from=builder /app/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
